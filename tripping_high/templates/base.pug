@@ -1,0 +1,9 @@
+{% load static %}
+{% load sass_tags %}
+html
+  head
+    link(href="{% sass_src 'base.scss' %}",rel="stylesheet",type="text/css")
+    img(src="{% static 'example.jpg' %}",alt="My image")
+  body
+    {% block content %}
+    {% endblock %}
