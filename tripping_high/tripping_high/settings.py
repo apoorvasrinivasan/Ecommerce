@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'common.apps.CommonConfig',
     'sass_processor',
     'static_precompiler',
+    'product.apps.ProductConfig',
+    'nested_admin'
 ]
 
 MIDDLEWARE = [

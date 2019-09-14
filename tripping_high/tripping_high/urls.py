@@ -20,4 +20,6 @@ import common
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url('', include('common.urls')),
+    url(r'^nested_admin/', include('nested_admin.urls')),
+
 ]
