@@ -1,12 +1,25 @@
 {% load compile_static %}
 {% load static %}
+{% load sass_tags %}
 
 html
-  head"
-      link(href='{% static "base.scss" %}',rel="stylesheet",type="text/css")
+  head
+    link(href='{% sass_src "base.scss" %}',rel="stylesheet",type="text/css")
 
-    script(type="text/javascript", src="{% static 'base.coffee'|compile %}")
-    img(src="{% static 'example.jpg' %}",alt="My image")
+  script(type="text/javascript", src="{% static 'base.coffee'|compile %}")
   body
-    {% block content %}
-    {% endblock %}
+    header
+      div.small-strip
+        span Track Order
+        span Account
+        span Cart
+        span Wishlist
+      {% block menu %}
+      div.menu
+          span.logo
+      {% endblock %}
+    div.content
+      {% block content %}
+      {% endblock %}
+
+  link(href="https://fonts.googleapis.com/css?family=Cabin|Merienda|Rock+Salt&display=swap" ,rel="stylesheet") 

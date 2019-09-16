@@ -2,9 +2,10 @@
 from __future__ import unicode_literals
 import nested_admin
 from django.contrib import admin
-
+from django import forms
 # Register your models here.
 from models import Product, Category, Variant, ProductVariant,ProductType,VariantValues
+
 
 class VariantInline(admin.TabularInline):
     model = Variant
@@ -18,7 +19,7 @@ admin.site.register(Category, CategoryAdmin)
 
 class VariantValuesInline(nested_admin.NestedStackedInline):
     model = VariantValues
-    extra = 2
+    extra = 1
 
 
 class ProductVariantInline(nested_admin.NestedTabularInline):
@@ -30,18 +31,18 @@ class ProductVariantInline(nested_admin.NestedTabularInline):
 
 class ProductAdmin(nested_admin.NestedModelAdmin):
     inlines = (ProductVariantInline,)
-    extra = 1
+    extra = 0
     pass
 admin.site.register(Product, ProductAdmin)
 
-class ProductVariantAdmin(admin.ModelAdmin):
-    inlines = (VariantValuesInline,)
-    pass
-admin.site.register(ProductVariant, ProductVariantAdmin)
+# class ProductVariantAdmin(admin.ModelAdmin):
+#     inlines = (VariantValuesInline,)
+#     pass
+# admin.site.register(ProductVariant, ProductVariantAdmin)
 
-class ProductVariantValuesAdmin(admin.ModelAdmin):
-    pass
-admin.site.register(VariantValues, ProductVariantValuesAdmin)
+# class ProductVariantValuesAdmin(admin.ModelAdmin):
+#     pass
+# admin.site.register(VariantValues, ProductVariantValuesAdmin)
 
 class ProductTypeAdmin(admin.ModelAdmin):
     inlines = [VariantInline]

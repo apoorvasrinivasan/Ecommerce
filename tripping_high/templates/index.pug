@@ -1,4 +1,16 @@
 {% extends 'base.pug' %}
+{% load static %}
+{% block menu %}{% endblock %}
 {% block content %}
-h1 lol
+
+div#menuBar.index-menu-bar
+  h1 graphic tshirts
+  div.logo
+
+div.coverimage.carasol
+  {% for i in images %}
+  div.carasol-item(class="item{{i}}")
+  {% endfor %}
+div.gender
+  
 {% endblock %}

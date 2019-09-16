@@ -19,7 +19,8 @@ import common
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url('', include('common.urls')),
+    url(r'^product/', include('product.urls')),
     url(r'^nested_admin/', include('nested_admin.urls')),
 
+    url(r'^', include('common.urls')),
 ]

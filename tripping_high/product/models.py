@@ -20,7 +20,12 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
- 
+    def dict(self):
+        return {
+            'name':self.name,
+            'id':self.id,
+            'slug':self.slug
+        }
     def _get_unique_slug(self):
         slug = slugify(self.name)
         unique_slug = slug
@@ -61,11 +66,24 @@ class Product(models.Model):
         if not self.slug:
             self.slug = self._get_unique_slug()
         super(Product, self).save(*args, **kwargs)
+    def dict(self):
+        return {
+            'sku':self.sku,
+            'title':self.title,
+            'id':self.id,
+            'slug':self.slug,
+            'type':self.pType.title,
+            'category':self.category.name,
+            'category_full':self.category.dict(),
+            'price':self.price,
+            'created_on':self.created_on
+        }
 
 class Variant(models.Model):
     forType = models.ForeignKey(ProductType)
     name = models.CharField(max_length=50)
     default = models.CharField(max_length=50)
+    options = models.CharField(max_length=50, help_text = 'comma separated options', null=True, blank=True)
     def __str__(self):
         return self.name
 
@@ -91,6 +109,8 @@ class VariantValues(models.Model):
     def save(self,*args, **kwargs):
         if self.value is None:  
             self.value = self.variantname.default
+        else:
+            assert self.value in self.variantname.options.split(',')
         # if self.price is None:
         #     self.price = self.product.price
         super(VariantValues, self).save(*args, **kwargs)
@@ -99,6 +119,3 @@ class VariantValues(models.Model):
 
     def __str__(self):
         return "%s - %s "%(self.product.product.title, self.value)
-
-    
-        
