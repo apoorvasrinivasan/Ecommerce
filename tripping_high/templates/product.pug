@@ -1,0 +1,25 @@
+{% extends 'base.pug' %}
+
+{% block content %}
+div.margin-top
+section.product-image
+section.product-details
+  div.title {{product.title}}
+  span.category {{product.category }}
+  div.price {{product.price}}
+  {{ p.variants }}
+  div.variantoptions
+    {% for v,k in product.variants.items %}
+    div.variant
+      {{ v }}
+      {% for op in k %}
+      span.op {{op}}
+      {%endfor %}
+    {%endfor %}
+  div
+    | QNTY : 
+    select
+      option 1
+      option 2
+  button Add to cart
+{% endblock %}

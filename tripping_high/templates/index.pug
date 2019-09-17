@@ -1,16 +1,26 @@
 {% extends 'base.pug' %}
 {% load static %}
-{% block menu %}{% endblock %}
 {% block content %}
-
-div#menuBar.index-menu-bar
-  h1 graphic tshirts
-  div.logo
 
 div.coverimage.carasol
   {% for i in images %}
   div.carasol-item(class="item{{i}}")
   {% endfor %}
-div.gender
-  
+section.variants
+  div.variant
+    a.op.gender-female(href="{%url 'product_listing' %}?gender=female")
+      p 
+        ! Female
+    a.op.gender-male(href="{%url 'product_listing' %}?gender=male")
+      p 
+        ! Male
+
+  //- {% for v in variants %}
+  //- div.variant
+  //-   {% for op in v.options %}
+  //-   div.op
+  //-     p 
+  //-       {{op}}
+  //-   {%endfor %}
+  //- {%endfor %}
 {% endblock %}

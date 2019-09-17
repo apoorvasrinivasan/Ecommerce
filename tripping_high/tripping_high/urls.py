@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import include, url
-import common
+import  product.views as pv
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^product_listing/$', pv.product_listing, name='product_listing'),
     url(r'^product/', include('product.urls')),
     url(r'^nested_admin/', include('nested_admin.urls')),
 

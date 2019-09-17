@@ -1,10 +1,10 @@
-from .models import Category as Cat, Product as P
+from .models import Category as Cat, Product as P, Variant as V
 from django.http import HttpResponseBadRequest
 
 class Generic(object):
-  def __init__(self,request,*args,**kwargs):
+  def __init__(self,request,  return_type = 'raw',*args,**kwargs):
     self.method = request.method
-    self.return_type = kwargs['return_type'] if 'return_type' in kwargs else 'raw'
+    self.return_type = return_type
 
   def ret(self):
     if self.return_type == 'raw':
@@ -28,6 +28,8 @@ class Generic(object):
         self.obj = self.model.objects.get(pk =int(pk))
       except:
         raise HttpResponseBadRequest
+    elif kwargs:
+      self.obj = self.model.objects.get(**kwargs)
     else:
       self.obj = self.model.objects.all()
     return self.ret()
@@ -46,5 +48,16 @@ class Product(Generic):
   def __init__(self,request,*args,**kwargs):
     self.model = P
     super(Product, self).__init__( request, *args, **kwargs)
+  # def get_filtered(self):
+  #   p = self.obj
+  #   filters= {}
+  #   for r in request.GET.keys():
+  #     filters[r] = request.GET.get(r)
+
+    
+class Variant(Generic):
+  def __init__(self,request,*args,**kwargs):
+    self.model = V
+    super(Variant, self).__init__( request, *args, **kwargs)
     
 

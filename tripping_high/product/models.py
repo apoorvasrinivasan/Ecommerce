@@ -67,12 +67,22 @@ class Product(models.Model):
             self.slug = self._get_unique_slug()
         super(Product, self).save(*args, **kwargs)
     def dict(self):
+        variants = self.productvariant_set.all().values('variantvalues__value', 'variantname__name')
+        v = {}
+        for x in variants:
+            name =x['variantname__name']
+            if name in v:
+                v[name].append(x['variantvalues__value'])
+            else:
+                v[name]=[x['variantvalues__value']]
+
         return {
             'sku':self.sku,
             'title':self.title,
             'id':self.id,
             'slug':self.slug,
             'type':self.pType.title,
+            'variants':v,
             'category':self.category.name,
             'category_full':self.category.dict(),
             'price':self.price,
@@ -86,6 +96,13 @@ class Variant(models.Model):
     options = models.CharField(max_length=50, help_text = 'comma separated options', null=True, blank=True)
     def __str__(self):
         return self.name
+    def dict(self):
+        return {
+            "forType":self.forType.title,
+            "name":self.name,
+            "default":self.default,
+            "options":self.options.split(',')   
+        }
 
 def variant_default(self):
         return self.variantname.default

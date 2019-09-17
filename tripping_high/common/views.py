@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.shortcuts import render
-from product.apis import Category
+from product.apis import Category, Variant
 
 # Create your views here.
 
 def index(request):
-	c = Category(request)
-	c = c.get()
-	return render(request, 'index.pug',{'categories':c, 'images':['0','1','2']})
+  # c = Category(request)
+  # c = c.get()
+
+  v = Variant(request, return_type= "dict")
+  v = v.get()
+  return render(request, 'index.pug',{"variants":v, 'images':['0','1','2']})

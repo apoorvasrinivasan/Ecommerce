@@ -1,0 +1,14 @@
+{% extends 'base.pug' %}
+{% load static %}
+
+{% block content %}
+
+div.margin-top
+section.products
+  {% for p in products %}
+  div.product
+      div 
+        a(href="{% url 'product' p.slug %}")  {{ p.title }}
+      span.price {{ p.price }}
+  {% endfor %}
+{% endblock %}

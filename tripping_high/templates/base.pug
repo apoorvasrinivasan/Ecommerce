@@ -14,10 +14,9 @@ html
         span Account
         span Cart
         span Wishlist
-      {% block menu %}
-      div.menu
-          span.logo
-      {% endblock %}
+    div#menuBar.index-menu-bar
+      h1 {% block h1 %}  graphic tshirts{% endblock %}
+      a.logo(href='/')
     div.content
       {% block content %}
       {% endblock %}
